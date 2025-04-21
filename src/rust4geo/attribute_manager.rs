@@ -1,6 +1,7 @@
-use std::cmp::Reverse;
 use gdal::vector::{ Feature, Layer, LayerAccess };
 use md5::Digest;
+
+use super::list_utils::descendant_sort;
 
 type FieldsName<'a> = Vec<&'a str>;
 type FieldsIndex = Vec<i32>;
@@ -46,7 +47,7 @@ impl<'a> AttributeManager<'a> {
     /// * `fields_to_remove` A list of fields name to remove.
     pub fn delete_fields(&mut self, fields_to_remove: FieldsName) {
         let mut fields_index = self.get_fields_index(fields_to_remove);
-        fields_index.sort_by_key(|&x| Reverse(x));
+        descendant_sort(&mut fields_index);
 
         for field_index in fields_index {
             unsafe {

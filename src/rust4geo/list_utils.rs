@@ -51,3 +51,11 @@ pub fn get_absent<'a, T>(vector_a: &'a Vec<T>, vector_b: &'a Vec<T>) -> Vec<&'a 
         .filter(|item| !vector_b.contains(item))
         .collect()
 }
+
+pub fn descendant_sort<T: Ord>(vector: &mut Vec<T>) {
+    vector.sort_by(|a, b| b.cmp(a));
+}
+
+pub fn ascendant_sort<T: Ord>(vector: &mut Vec<T>) {
+    vector.sort();
+}
